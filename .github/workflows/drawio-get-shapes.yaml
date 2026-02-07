@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
     inputs:
       run_id:
-        description: 'The run ID from the source repository workflow'
+        description: 'The Tag from the source repository release'
         required: true
         type: string
 
@@ -18,19 +18,24 @@ jobs:
           # Use the PAT for cross-repository permissions
           token: ${{ secrets.ACTIONS_PAT }} 
 
-      - name: Download artifact from source repository
-        uses: dawidd6/action-download-artifact@v3 # Use a community action for cross-repo download
+      - name: Download Release assets
+        uses: robinraju/release-downloader@v12 # Use a community action for cross-repo download
         with:
-          github_token: ${{ secrets.ACTIONS_PAT }} # Use the PAT
+          token: ${{ secrets.ACTIONS_PAT }} # Use the PAT
           repository: gbonk/vector-drawing-solar-inverter # Replace with your source repo owner/name
           ref: ${{ github.event.inputs.run_id }}
-          name: my-release-artifact
-          path: ./drawio # Directory where artifacts are extracted
+          filename: '*-drawio.xml'
+          path: ./temp # Download To Temp Dir
 
       - name: Configure Git
         run: |
           git config user.name "GitHub Actions Bot"
           git config user.email "<>"
+
+      - name: Rename and Move Files
+        run: |
+          SUFFIX='-drawio' ; find ./dist -name "*$SUFFIX.xml" |  sed -e "p;s/$SUFFIX//"  | xargs -n2 mv
+          mv *.xml ../drawio/
 
       - name: Commit and push changes
         run: |
