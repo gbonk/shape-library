@@ -19,7 +19,7 @@ jobs:
           token: ${{ secrets.ACTIONS_PAT }} 
 
       - name: Download Release assets
-        uses: robinraju/release-downloader@v12 # Use a community action for cross-repo download
+        uses: robinraju/release-downloader@v1.12 # Use a community action for cross-repo download
         with:
           token: ${{ secrets.ACTIONS_PAT }} # Use the PAT
           repository: gbonk/vector-drawing-solar-inverter # Replace with your source repo owner/name
