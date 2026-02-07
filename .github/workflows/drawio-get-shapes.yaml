@@ -1,0 +1,42 @@
+name: Download Artifacts and Commit
+
+on:
+  workflow_dispatch:
+    inputs:
+      run_id:
+        description: 'The run ID from the source repository workflow'
+        required: true
+        type: string
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout destination repository
+        uses: actions/checkout@v4
+        with:
+          # Use the PAT for cross-repository permissions
+          token: ${{ secrets.ACTIONS_PAT }} 
+
+      - name: Download artifact from source repository
+        uses: dawidd6/action-download-artifact@v3 # Use a community action for cross-repo download
+        with:
+          github_token: ${{ secrets.ACTIONS_PAT }} # Use the PAT
+          repository: gbonk/vector-drawing-solar-inverter # Replace with your source repo owner/name
+          ref: ${{ github.event.inputs.run_id }}
+          name: my-release-artifact
+          path: ./drawio # Directory where artifacts are extracted
+
+      - name: Configure Git
+        run: |
+          git config user.name "GitHub Actions Bot"
+          git config user.email "<>"
+
+      - name: Commit and push changes
+        run: |
+          # Add all changes in the downloaded-artifacts directory
+          git add drawio
+          git commit -m "Syncing release artifacts from source repo run ${{ github.event.inputs.run_id }}"
+          git push
+        env:
+          GITHUB_TOKEN: ${{ secrets.ACTIONS_PAT }} # Use the PAT for pushing
