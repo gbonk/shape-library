@@ -25,7 +25,7 @@ jobs:
           repository: gbonk/vector-drawing-solar-inverter # Replace with your source repo owner/name
           tag: ${{ inputs.run_id }}
           filename: '*-drawio.xml'
-          path: ./temp # Download To Temp Dir
+          out-file-path: ./temp # Download To Temp Dir
 
       - name: Configure Git
         run: |
