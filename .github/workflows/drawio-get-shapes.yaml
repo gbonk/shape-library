@@ -23,7 +23,7 @@ jobs:
         with:
           token: ${{ secrets.ACTIONS_PAT }} # Use the PAT
           repository: gbonk/vector-drawing-solar-inverter # Replace with your source repo owner/name
-          tag: ${{ github.event.inputs.run_id }}
+          tag: ${{ inputs.run_id }}
           filename: '*-drawio.xml'
           path: ./temp # Download To Temp Dir
 
