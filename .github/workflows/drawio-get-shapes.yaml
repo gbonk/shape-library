@@ -34,8 +34,8 @@ jobs:
 
       - name: Rename and Move Files
         run: |
-          SUFFIX='-drawio' ; find ./dist -name "*$SUFFIX.xml" |  sed -e "p;s/$SUFFIX//"  | xargs -n2 mv
-          mv *.xml ../drawio/
+          SUFFIX='-drawio' ; find ./temp -name "*$SUFFIX.xml" |  sed -e "p;s/$SUFFIX//"  | xargs -n2 mv
+          mv ./temp/*.xml ./drawio/
 
       - name: Commit and push changes
         run: |
