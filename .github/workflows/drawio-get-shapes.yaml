@@ -22,8 +22,8 @@ jobs:
         uses: robinraju/release-downloader@v1.12 # Use a community action for cross-repo download
         with:
           token: ${{ secrets.ACTIONS_PAT }} # Use the PAT
-          repository: gbonk/vector-drawing-solar-inverter # Replace with your source repo owner/name
-          releaseId: ${{ inputs.run_id }}
+          repository: gbonk/vector-drawing-solar-inverter-charger # Replace with your source repo owner/name
+          tag: ${{ inputs.run_id }}
           filename: '*-drawio.xml'
           out-file-path: ./temp # Download To Temp Dir
 
