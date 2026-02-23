@@ -1,6 +1,8 @@
 
 Third Party files are copyright of their respective owners.
 
+NOTE: I do not have the capability to support these libraries.
+
 Most of the information for the files I pulled came from this thread...
 
 https://communityarchive.victronenergy.com/questions/7837/visio-stencils-for-victron-products.html

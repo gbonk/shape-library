@@ -1,3 +1,4 @@
+```
 {
   "language": "",
   "configVersion": null,
@@ -65,3 +66,4 @@
   "ui": "",
   "compactMode": false
 }
+```
